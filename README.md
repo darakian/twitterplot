@@ -32,8 +32,11 @@ cargo build --release
 ```
 Twitter refers to these keys as `Consumer API keys` and `Access token & access token secret`
 
-# Sentiment
-At the moment sentiment is defined on a scale of (-1..1) and plotted as time progresses. Sentiment values are determined by counting "good" and "bad" words within a given tweet. Historical tweet count is configurable but set to 200 at the moment.
+## Sentiment
+At the moment sentiment is defined on a scale of (-1..1) and plotted as time progresses. Sentiment values are determined by counting "good" and "bad" words within a given tweet. Historical tweet count is configurable but set to 200 per tag at the moment.
+
+## Tags
+The tags chosen for this exercise are `"twitter,facebook,google,travel,art,music,photography,love,fashion,food"`. These are hard coded at the moment.
 
 ## Architecture
 Built around the [Twitter Stream rs](https://github.com/tesaguri/twitter-stream-rs) library this project inherits the tokio futures based runtime with processing done on a per-message basis. An initial design choice was to register one future for each search term, however a limitation was discovered in the twitter api which caused a redesign. According to [some discussion online](https://stackoverflow.com/questions/34962677/twitter-streaming-api-limits) twitter limits streaming api connections to one per application. In testing I found two to be my personal limit, however the issue resulted in a single connection architecture. As a result tweet classification is non-trivial.
