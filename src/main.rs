@@ -78,24 +78,3 @@ fn main() {
         window.update_with_buffer(&disp_buff).unwrap();
     }
 }
-
-
-
-
-
-
-
-
-
-// fn main() {
-//         let mut window = Window::new("Test - ESC to exit",
-//                                      WIDTH,
-//                                      HEIGHT,
-//                                      WindowOptions::default()).unwrap_or_else(|e| {
-//             panic!("{}", e);
-//         });
-//         while window.is_open() && !window.is_key_down(Key::Escape) { //Infinite loop
-//             let disp_buff = render_frame(WIDTH, HEIGHT);
-//             window.update_with_buffer(&disp_buff).unwrap();
-//         }
-// }

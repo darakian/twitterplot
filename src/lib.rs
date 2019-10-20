@@ -96,6 +96,5 @@ fn process_tweet(tweet: Value, tags: String, s: Sender<(String, f32)>) -> (){
         classifier = tag_list.choose(&mut rand::thread_rng()).unwrap().to_string();
     }
     let score: f32 = (good_count as f32 - bad_count as f32) / (good_count+bad_count+1) as f32;
-    //println!("Score: {:?}", score);
     s.send((classifier.to_string(),score));
 }
