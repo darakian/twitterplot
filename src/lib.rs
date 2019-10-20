@@ -1,6 +1,6 @@
 use plotters::prelude::*;
 use twitter_stream::{Token, TwitterStreamBuilder};
-use twitter_stream::rt::{self};
+use twitter_stream::rt::{self, lazy};
 use serde_json::{Value};
 use twitter_stream::rt::{Future, Stream};
 use rand::seq::SliceRandom;
@@ -69,8 +69,14 @@ pub fn twitter_sub(c_key: String, c_secret: String, a_token: String, a_secret: S
 	.unwrap()
         .flatten_stream()
         .for_each(move |json| {
-            let value: Value = serde_json::from_str(&json).unwrap();
-            process_tweet(value, owned_id.clone(), s.clone());
+            let inner_s = s.clone();
+            let inner_id = owned_id.clone();
+            rt::spawn(lazy(move || {
+                let value: Value = serde_json::from_str(&json).unwrap();
+                process_tweet(value, inner_id, inner_s);
+                Ok(())
+            }));
+            //process_tweet(value, owned_id.clone(), s.clone());
             Ok(())
         })
         .map_err(|e| println!("error: {}\n 420 => Rate limit", e))

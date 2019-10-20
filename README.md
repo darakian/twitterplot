@@ -42,7 +42,7 @@ The tags chosen for this exercise are `"twitter,facebook,google,travel,art,music
 Built around the [Twitter Stream rs](https://github.com/tesaguri/twitter-stream-rs) library this project inherits the tokio futures based runtime with processing done on a per-message basis. An initial design choice was to register one future for each search term, however a limitation was discovered in the twitter api which caused a redesign. According to [some discussion online](https://stackoverflow.com/questions/34962677/twitter-streaming-api-limits) twitter limits streaming api connections to one per application. In testing I found two to be my personal limit, however the issue resulted in a single connection architecture. As a result tweet classification is non-trivial.
 
 ### Architecture Diagram
-The logical data flow looks like, however in code the stream handlers do the processing themselves.
+The logical data flow looks like:
 ![ETL flow](https://raw.githubusercontent.com/darakian/twitterplot/master/docs/arch.png)
 
 
