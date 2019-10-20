@@ -1,5 +1,5 @@
 # Twitter plotter
-This is a basic pure rust implementation of a twitter parser which plots its results.
+This is a basic pure rust implementation of a twitter parser which plots its results. No dependencies other than a working rust development environment are required.
 
 ## Usage
 A set of twitter keys will be necessary in order to use this code. They are all provided via command line arguments. `cargo run` will also interfere with the key word arguments so you will need to run the binary directly after compilation. Usage can be seen by calling `--help` ex.
