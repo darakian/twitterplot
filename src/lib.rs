@@ -12,10 +12,10 @@ const GOOD_WORDS: [&'static str; 10] = ["winning","love","best","taco","hooray",
 const BAD_WORDS: [&'static str; 10] = ["losing","hate","worst","tamale","boo","terrible","💔","😢","horrible","dystopian"];
 
 pub fn render_frame(w: usize, h: usize, trends: HashMap<String, VecDeque<f32>>, hist: usize) -> Vec<u32>{
-    let WIDTH = w;
-    let HEIGHT = h;
-    let mut bit_buffer: Vec<u8> = vec![0; WIDTH * HEIGHT * 4];
-    let root = BitMapBackend::with_buffer(&mut bit_buffer, (WIDTH as u32, HEIGHT as u32)).into_drawing_area();
+    let width = w;
+    let height = h;
+    let mut bit_buffer: Vec<u8> = vec![0; width * height * 4];
+    let root = BitMapBackend::with_buffer(&mut bit_buffer, (width as u32, height as u32)).into_drawing_area();
     root.fill(&WHITE).unwrap();
     let mut chart = ChartBuilder::on(&root)
         .caption("Selected Twitter Sentiment", ("Arial", 50).into_font())
@@ -102,5 +102,5 @@ fn process_tweet(tweet: Value, tags: String, s: Sender<(String, f32)>) -> (){
         classifier = tag_list.choose(&mut rand::thread_rng()).unwrap().to_string();
     }
     let score: f32 = (good_count as f32 - bad_count as f32) / (good_count+bad_count+1) as f32;
-    s.send((classifier.to_string(),score));
+    s.send((classifier.to_string(),score)).unwrap();
 }
