@@ -11,11 +11,10 @@ use std::collections::VecDeque;
 const GOOD_WORDS: [&'static str; 10] = ["winning","love","best","taco","hooray","wonderful","❤️","😍","beautiful","fantastic"];
 const BAD_WORDS: [&'static str; 10] = ["losing","hate","worst","tamale","boo","terrible","💔","😢","horrible","dystopian"];
 
-pub fn render_frame(w: usize, h: usize, trends: HashMap<String, VecDeque<f32>>, hist: usize) -> Vec<u32>{
+pub fn render_frame(w: usize, h: usize, trends: HashMap<String, VecDeque<f32>>, hist: usize, bit_buffer: &mut Vec<u8>) -> Vec<u32>{
     let width = w;
     let height = h;
-    let mut bit_buffer: Vec<u8> = vec![0; width * height * 3];
-    let root = BitMapBackend::with_buffer(&mut bit_buffer, (width as u32, height as u32)).into_drawing_area();
+    let root = BitMapBackend::with_buffer(bit_buffer, (width as u32, height as u32)).into_drawing_area();
     root.fill(&WHITE).unwrap();
     let mut chart = ChartBuilder::on(&root)
         .caption("Selected Twitter Sentiment", ("Arial", 50).into_font())

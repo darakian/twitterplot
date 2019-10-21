@@ -38,6 +38,7 @@ fn main() {
         panic!("{}", e);
     });
     let (sender, receiver) = channel();
+    let mut render_buffer: Vec<u8> = vec![0; WIDTH * HEIGHT * 3];
     let mut sentiments = HashMap::new();
     for token in vec!["twitter","facebook","google","travel","art","music","photography","love","fashion","food"].iter(){
         let history: VecDeque<f32> = VecDeque::with_capacity(HISTORY);
@@ -74,7 +75,7 @@ fn main() {
                 }
              }
         }
-        let disp_buff = render_frame(WIDTH, HEIGHT, sentiments.clone(), HISTORY);
+        let disp_buff = render_frame(WIDTH, HEIGHT, sentiments.clone(), HISTORY, &mut render_buffer);
         window.update_with_buffer(&disp_buff).unwrap();
     }
 }
