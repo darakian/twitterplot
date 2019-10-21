@@ -14,7 +14,7 @@ const BAD_WORDS: [&'static str; 10] = ["losing","hate","worst","tamale","boo","t
 pub fn render_frame(w: usize, h: usize, trends: HashMap<String, VecDeque<f32>>, hist: usize) -> Vec<u32>{
     let width = w;
     let height = h;
-    let mut bit_buffer: Vec<u8> = vec![0; width * height * 4];
+    let mut bit_buffer: Vec<u8> = vec![0; width * height * 3];
     let root = BitMapBackend::with_buffer(&mut bit_buffer, (width as u32, height as u32)).into_drawing_area();
     root.fill(&WHITE).unwrap();
     let mut chart = ChartBuilder::on(&root)
